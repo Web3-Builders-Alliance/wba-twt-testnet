@@ -31,6 +31,3 @@ tarpaulin-report.*
 packages/*/schema
 contracts/*/schema
 
-# chain specifics
-**/template/**
-
