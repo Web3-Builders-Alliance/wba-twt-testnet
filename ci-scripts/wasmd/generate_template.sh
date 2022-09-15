@@ -13,12 +13,13 @@ export CHAIN_ID=wasmd-1
 
 # The usage of the accounts below is documented in README.md of this directory
 docker run --rm \
-  -e PASSWORD=my-secret-password \
+  -e PASSWORD=1234567890 \
   -e CHAIN_ID \
   --mount type=bind,source="$SCRIPT_DIR/template",target=/root \
   "$REPOSITORY:$VERSION" \
   /opt/setup.sh \
-  wasm14qemq0vw6y3gc3u3e0aty2e764u4gs5lndxgyk
+  wasm14qemq0vw6y3gc3u3e0aty2e764u4gs5lndxgyk \
+  wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp
 
 sudo chmod -R g+rwx template/.wasmd/
 sudo chmod -R a+rx template/.wasmd/
