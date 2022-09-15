@@ -15,6 +15,16 @@ $ ./ci-scripts/wasmd/stop.sh
 
 NOTE: to stop the process, please press `ctrl + z` and run stop.sh script.
 
+# Hermes
+
+To use hermes:
+
+```bash
+$ cd hermes
+
+$ hermes --config config.toml [COMMAND]
+```
+
 # ToDos
 
 [] setup [ts-relayer](https://github.com/confio/ts-relayer)
