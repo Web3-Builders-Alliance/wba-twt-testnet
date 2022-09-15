@@ -1,32 +1,55 @@
-# Getting started
+# IBC testing chains
 
-Before starting chain, create template files:
+## Start chains
+
+There are 2 chains, wasmd and osmosisd for testing, you will need to start both of the chains to test IBC.
+
+### Start wasmd in terminal 1:
 
 ```bash
-$ generate_template.sh
+$ cd ./ci-scripts/wasmd/start.sh
 ```
 
-Start and stop chain:
+### Start osmosis in terminal 2:
+
 ```bash
-$ ./ci-scripts/wasmd/start.sh
-
-$ ./ci-scripts/wasmd/stop.sh
+$ cd ./ci-scripts/osmosis/start.sh
 ```
 
-NOTE: to stop the process, please press `ctrl + z` and run stop.sh script.
+### Close chains.
 
-# Hermes
+To shut down the chains, go into the terminal and click `ctrl + z` after that, run the stop script.
 
-To use hermes:
+```bash
+$ cd ./ci-scripts/wasmd/stop.sh
+```
+
+```bash
+$ cd ./ci-scripts/osmosis/stop.sh
+```
+
+NOTE: `ctrl + c` might not stop the process because of the way we run the docker, `ctrl + z` will abort and allow you to run the stop script.  
+You should also be able to run the stop script in other terminal.
+
+## Start hermes
+
+To run hermes, the chains already include the relayer wallets for signing txs, but we still need hermes to be able to use them.
+
+### Quick start
+
+This will run the needed commands to validate the chains and the config, set up the keys for the wallets, create connection between the chains and 
+run hermes proess.
+
+```bash
+$ ./hermes/start.sh
+```
+
+### Custom hermes
+
+If you need anything else from hermes, you can always run hermes commands
 
 ```bash
 $ cd hermes
 
 $ hermes --config config.toml [COMMAND]
 ```
-
-# ToDos
-
-[] setup [ts-relayer](https://github.com/confio/ts-relayer)
-
-[] ibc example: sending from chain a to chain b via ts-relayer
