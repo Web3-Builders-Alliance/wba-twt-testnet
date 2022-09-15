@@ -13,6 +13,8 @@ $ ./ci-scripts/wasmd/start.sh
 $ ./ci-scripts/wasmd/stop.sh
 ```
 
+NOTE: to stop the process, please press `ctrl + z` and run stop.sh script.
+
 # ToDos
 
 [] setup [ts-relayer](https://github.com/confio/ts-relayer)
