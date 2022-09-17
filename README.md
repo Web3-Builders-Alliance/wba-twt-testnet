@@ -96,6 +96,8 @@ osmosis = http://127.0.0.1:26653
 
 Because our chains runs inside a docker, we have to talk with the chains from inside the docker.
 
+* You can talk with the chain from outside the docker, by using the --node and giving the RPC URL of the chain: `wasmd: http://127.0.0.1:26659`
+
 You can enter the docker shell:
 
 ```
