@@ -23,7 +23,7 @@ if [ -z "$docker" ]; then echo "[ERROR] Please include docker name [wasmd|osmosi
 # Verify we got the contract name to upload
 if [ -z "$code_id" ]; then echo "[ERROR] Must provide code id" && exit 1; fi
 
-# Must include a label
+# Set default label
 if [ -z "$label" ]; then label="testing"; fi
 
 # Verify we have a wallet, either a default wallet, or given by user
