@@ -21,8 +21,8 @@ if [ -z "$docker" ]; then echo "[ERROR] Please include docker name [wasmd|osmosi
 # Verify we got the contract name to upload
 if [ -z "$contract" ]; then echo "[ERROR] Please include contract name to upload [example.wasm]" && exit 1; fi
 
-# Must include a label
-if [ -z "$label" ]; then echo "[ERROR] Must include a label" && exit 1; fi
+# Set default label
+if [ -z "$label" ]; then label="testing"; fi
 
 # Verify we have a wallet, either a default wallet, or given by user
 if [ -z "$wallet" ]; then
