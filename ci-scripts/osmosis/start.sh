@@ -19,10 +19,14 @@ docker volume rm -f osmosis_data
 echo "starting osmosisd running on http://localhost:$TENDERMINT_PORT_HOST"
 
 docker run --rm \
+  -e RELAYER_MNEMONIC="harsh adult scrub stadium solution impulse company agree tomorrow poem dirt innocent coyote slight nice digital scissors cool pact person item moon double wagon" \
+  -e PASSWORD=1234567890 \
   --user=root \
   --name "$CONTAINER_NAME" \
   -p "$TENDERMINT_PORT_HOST":"$TENDERMINT_PORT_GUEST" \
+  -p "9092":"9090" \
+  -p "9093":"9091" \
   --mount type=bind,source="$SCRIPT_DIR/template",target=/template \
   --mount type=volume,source=osmosis_data,target=/root \
   "$REPOSITORY:$VERSION" \
-  2>&1 | tee debug-osmosis.log | grep 'executed block'
+    sh -c 'printf "%s\n" "$RELAYER_MNEMONIC" "$PASSWORD" "$PASSWORD" | osmosisd keys add relayer2 --recover &> null; /opt/run.sh 2>&1 | tee debug-osmosis.log | grep "executed block"'
