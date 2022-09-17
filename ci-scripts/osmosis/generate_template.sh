@@ -22,6 +22,8 @@ docker run --rm \
   osmo1lvrwcvrqlc5ktzp2c4t22xgkx29q3y83hdcc5d \
   osmo1ll3s59aawh0qydpz2q3xmqf6pwzmj24t9ch58c
 
+cp -ar "$SCRIPT_DIR"/../extra/contracts "$SCRIPT_DIR"/template
+
 sudo chmod -R g+rwx template/.osmosisd/
 sudo chmod -R a+rx template/.osmosisd/
 
