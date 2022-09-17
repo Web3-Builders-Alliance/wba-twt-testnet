@@ -21,6 +21,8 @@ docker run --rm \
   wasm14qemq0vw6y3gc3u3e0aty2e764u4gs5lndxgyk \
   wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp
 
+cp -ar "$SCRIPT_DIR"/../extra/contracts "$SCRIPT_DIR"/template
+
 sudo chmod -R g+rwx template/.wasmd/
 sudo chmod -R a+rx template/.wasmd/
 
