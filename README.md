@@ -125,44 +125,57 @@ After our chains started, we can upload contracts from inside the docker.
 
 **Move wasm file inside docker**
 
-To upload the contract you need to move the contract wasm file to the docker.  
-You can use `'docker cp'` for that. 
+To upload the contract you need to move the contract wasm file to the docker.
+
+Move the .wasm files into the `template/contracts` folder of each chains.
+
+This will place the files inside the docker, in the same path inside the docker, at `/template/contracts/wasm.wasm`.
+
+**Upload and init contracts**
+
+`./upload_init.sh`
+
+We have created a script to make this process easier, see [ci-scripts/extra/scripts/upload_init.sh](ci-scripts/extra/scripts/upload_init.sh)
+
+This script will upload and init the contract on the chain, you will need to run this script once per chain.
+
+### Options
 
 ```
-docker cp [SRC_PATH] [CONTAINER_ID]:[DEST_PATH] 
+    -d|--docker-name (required) - docker name of the chain. Ex: wasm | osmosis
+    -c|--contract-name (required) - full name of the contract. Ex: (ibc_example.wasm)
+    -i|--init-json (optional) - init msg for the contract. Default: "{}"
+    -w|--wallet (optional) - wallet that will be used for the process. Default: The relayer wallet
+    -l|--label (optional) - label for the contract. Default: "testing"
+    -nd|--no-admin (optional) - make contract without an admin. Default: -w|--wallet
 ```
 
-* To find the `CONTAINER_ID` you can use `'docker ps'` and look for the id of the chain you want, you will need to copy the wasm to each of the chains.
-* for `[DEST_PATH]` you can use `/opt/CONTRACT_NAME.wasm`, we will use this in our examples.
-
-After the contracts are moved, you can easily use that `[DEST_PATH]` to upload the contract to the chain.
-
-**Upload contracts to chain**
-
-We will use wasmd, but all examples applied to osmosis as well, just make sure to change your wallets and gas.
-
-To upload the contract, we do it the same way we do it usually, and we use the relayer wallet (its just a wallet that is already added)
+`Example:`
 
 ```
-docker exec -it wasmd \
-wasmd tx wasm store /opt/contract.wasm --from wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp \
---node http://127.0.0.1:26657 --chain-id wasmd-1 \
---gas-prices 0.1ucosm --gas auto --gas-adjustment 1.3 -b block -y
+./upload_init.sh -d wasmd -c ibc_example.wasm -i "{owner: "ADDR"}" -w ADDR -l "example" --no-admin
 ```
-
-If successful this will provide you the success response with the code id, it should be sequential, so the first uploaded contract should be 1.
 
 **Initialize ontracts**
 
+`./init.sh`
+
+We also created a script to only init a contract, see [ci-scripts/extra/scripts/init.sh](ci-scripts/extra/scripts/init.sh)
+
 ```
-docker exec -it wasmd \
-wasmd tx wasm init 1 '{}' --from wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp --admin wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp \
---label "testing" --node http://127.0.0.1:26657 --chain-id wasmd-1 --gas-prices 0.1ucosm --gas auto --gas-adjustment 1.3 -b block -y
+    -d|--docker-name (required) - docker name of the chain. Ex: wasm | osmosis
+->  -c|--code-id (required) - code id of uploaded contract. Ex: (1)
+    -i|--init-json (optional) - init msg for the contract. Default: "{}"
+    -w|--wallet (optional) - wallet that will be used for the process. Default: The relayer wallet
+    -l|--label (optional) - label for the contract. Default: "testing"
+    -nd|--no-admin (optional) - make contract without an admin. Default: -w|--wallet
 ```
 
-If successful this will provide you with the contract address, make sure you write it down, this is important address for us.
+`Example:`
 
-We will use this contract address for our examples: `wasm14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s0phg4d`
+```
+./init.sh -d wasmd -c 1 -i "{owner: "ADDR"}" -w ADDR -l "example" --no-admin
+```
 
 **Start channel (enable IBC for our contracts)**
 
