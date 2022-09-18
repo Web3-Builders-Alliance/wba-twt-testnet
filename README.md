@@ -139,7 +139,7 @@ We have created a script to make this process easier, see [ci-scripts/extra/scri
 
 This script will upload and init the contract on the chain, you will need to run this script once per chain.
 
-### Options
+`Options:`
 
 ```
     -d|--docker-name (required) - docker name of the chain. Ex: wasm | osmosis
@@ -161,6 +161,8 @@ This script will upload and init the contract on the chain, you will need to run
 `./init.sh`
 
 We also created a script to only init a contract, see [ci-scripts/extra/scripts/init.sh](ci-scripts/extra/scripts/init.sh)
+
+`Options:`
 
 ```
     -d|--docker-name (required) - docker name of the chain. Ex: wasm | osmosis
