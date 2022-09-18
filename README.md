@@ -168,7 +168,7 @@ This script will upload and init the contract on the chain, you will need to run
 ./upload_init.sh -d wasmd -c ibc_example.wasm -i "{owner: "ADDR"}" -w ADDR -l "example" --no-admin
 ```
 
-**Initialize ontracts**
+**Initialize contracts**
 
 `./init.sh`
 
@@ -196,8 +196,7 @@ We also created a script to only init a contract, see [ci-scripts/extra/scripts/
 To enable IBC, you need to create a channel between our contracts, we created a script to do that automatically.
 
 * You will need to upload the contracts on your chains and provide the script the 2 contract addresses.
-* By default, this script assume you are using `wasmd` and `osmosis` chains, if you modified your dockers, you might need to  
-    adjust this script.
+* By default, this script assume you are using `wasmd` and `osmosis` chains, if you modified your dockers, you might need to adjust this script.
 
 `Options:`
 
@@ -205,7 +204,7 @@ To enable IBC, you need to create a channel between our contracts, we created a 
     -ac|--a-contract (required) - wasmd contract address
     -bc|--b-contract (required) - osmosis contract address
     -cv|--channel-version (required) - the version your contracts expect
-    -c|--a-connection (optional) - choose specific connection, if no provided, we will get it from the chain.
+    -c|--a-connection (optional) - choose specific connection, if not provided, we will get it from the chain.
     -o|--order (optional) - order of the channel. Default: unordered
 ```
 
