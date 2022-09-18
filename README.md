@@ -197,6 +197,15 @@ To enable IBC, you need to create a channel between our contracts, we created a 
     -o|--order (optional) - order of the channel. Default: unordered
 ```
 
+`Example:`
+
+```
+./open_channel.sh -ac wasm14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s0phg4d \
+-bc osmo14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9sq2r9g9 \
+-cv "ping-1" \
+-c connection-0
+```
+
 You will get the channel id in response.
 
 If went successful, the 2 contracts are connected and can talk with each other over IBC! You done it!
