@@ -181,34 +181,24 @@ We also created a script to only init a contract, see [ci-scripts/extra/scripts/
 
 **Start channel (enable IBC for our contracts)**
 
-To enable IBC, you need to create a channel between our contracts, for that you need to know the ports of the contracts on both chains.  
-Usually it will be `wasm.CONTRACT_ADDR` so for our example, the port should be `wasm.wasm14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s0phg4d`.
-and on osmosis it should be `wasm.osmo14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9sq2r9g9`.
+To enable IBC, you need to create a channel between our contracts, we created a script to do that automatically.
 
-Thats because our connection between channels are made from wasm to osmo. (but communication, should go both ways)
+* You will need to upload the contracts on your chains and provide the script the 2 contract addresses.
+* By default, this script assume you are using `wasmd` and `osmosis` chains, if you modified your dockers, you might need to  
+    adjust this script.
 
-Lets verify the port by running the next command for each contract:
-
-```
-docker exec -it wasmd \
-wasmd query wasm contract wasm14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s0phg4d
-```
-
-This should give us the info of this contract, and there you should see the ibc port of this contract.
-
-Hermes already opened the connection between the chains, but now we need to open a channel between our contracts.
+`Options:`
 
 ```
-cd hermes
-
-hermes --config config.toml create channel --a-chain wasmd-1 --a-connection connection-0 \
---a-port wasm.wasm14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s0phg4d \ 
---b-port wasm.osmo14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9sq2r9g9 \
---order unordered --channel-version "ping-1"
+    -ac|--a-contract (required) - wasmd contract address
+    -bc|--b-contract (required) - osmosis contract address
+    -cv|--channel-version (required) - the version your contracts expect
+    -c|--a-connection (optional) - choose specific connection, if no provided, we will get it from the chain.
+    -o|--order (optional) - order of the channel. Default: unordered
 ```
 
-* The connection name should be connection-0 if you only started 1 connection, if that gives you an error, try to use other connection name connection-1 or connection-2(https://hermes.informal.systems/commands/queries/connection.html)
+You will get the channel id in response.
 
 If went successful, the 2 contracts are connected and can talk with each other over IBC! You done it!
 
-Now you can interact with your contracts and test them.
+Now you can interact with your contracts as usual and test them.
