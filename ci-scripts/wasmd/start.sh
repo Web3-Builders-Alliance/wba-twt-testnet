@@ -7,7 +7,6 @@ TENDERMINT_PORT_GUEST="26657"
 TENDERMINT_PORT_HOST="26659"
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
-MNEMONIC="harsh adult scrub stadium solution impulse company agree tomorrow poem dirt innocent coyote slight nice digital scissors cool pact person item moon double wagon";
 # shellcheck source=./env
 # shellcheck disable=SC1091
 source "$SCRIPT_DIR"/env

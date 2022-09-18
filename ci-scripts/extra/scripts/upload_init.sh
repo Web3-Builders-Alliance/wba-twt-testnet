@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PASSWORD="1234567890"
+PASSWORD=1234567890
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -29,10 +29,12 @@ if [ -z "$wallet" ]; then
     if [[ "$docker" == *"osmo"* ]]; then
         chain_client="osmosisd"
         chain_id="osmo-testing"
+        chain_coin="osmo"
         wallet="osmo1ll3s59aawh0qydpz2q3xmqf6pwzmj24t9ch58c"
     elif [[ "$docker" == *"wasm"* ]]; then
         chain_client="wasmd"
         chain_id="wasmd-1"
+        chain_coin="cosm"
         wallet="wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp"
     else 
         echo "[ERROR] Didn't recognized '$docker', please provide a wallet" && exit 1;
@@ -53,13 +55,12 @@ if [ -z "$init_json" ]; then init_json="{}"; fi
 CODE_ID=$(echo "$PASSWORD" | docker exec -i $docker \
 $chain_client tx wasm store /template/contracts/$contract --from $wallet \
 --node http://127.0.0.1:26657 --chain-id $chain_id \
---gas-prices 0.1ucosm --gas auto --gas-adjustment 1.3 -b block -y --output json \
-| jq '.["logs"][0] | .["events"][1] | .["attributes"][0].value | tonumber')
+--gas-prices 0.1u$chain_coin --gas auto --gas-adjustment 1.3 -b block -y --output json | jq '.["logs"][0] | .["events"][1] | .["attributes"][0].value | tonumber')
 
 # Init the contract and get the contract address from it.
 CONTRACT_ADDR=$(echo "$PASSWORD" | docker exec -i $docker \
 $chain_client tx wasm init $CODE_ID $init_json --from $wallet $admin \
---label $label --node http://127.0.0.1:26657 --chain-id $chain_id --gas-prices 0.1ucosm --gas auto --gas-adjustment 1.3 -b block -y --output json \
+--label $label --node http://127.0.0.1:26657 --chain-id $chain_id --gas-prices 0.1u$chain_coin --gas auto --gas-adjustment 1.3 -b block -y --output json \
 | jq '.["logs"][0] | .["events"][0] | .["attributes"][0].value')
 
 # ech to let us know the details.

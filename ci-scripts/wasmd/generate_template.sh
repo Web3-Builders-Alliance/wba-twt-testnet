@@ -13,7 +13,7 @@ export CHAIN_ID=wasmd-1
 
 # The usage of the accounts below is documented in README.md of this directory
 docker run --rm \
-  -e PASSWORD=1234567890 \
+  -e PASSWORD="1234567890" \
   -e CHAIN_ID \
   --mount type=bind,source="$SCRIPT_DIR/template",target=/root \
   "$REPOSITORY:$VERSION" \
