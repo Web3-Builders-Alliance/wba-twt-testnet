@@ -31,3 +31,5 @@ tarpaulin-report.*
 packages/*/schema
 contracts/*/schema
 
+# remove tempaltes from git
+ci-scripts/**/tempalte/.*
