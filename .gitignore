@@ -32,4 +32,7 @@ packages/*/schema
 contracts/*/schema
 
 # remove tempaltes from git
-ci-scripts/**/tempalte/.*
+ci-scripts/**/template/.*/*
+
+#remove test hermes config
+hermes/config2.toml

@@ -23,8 +23,8 @@ docker run --rm \
 
 cp -ar "$SCRIPT_DIR"/../extra/contracts "$SCRIPT_DIR"/template
 
-sudo chmod -R g+rwx template/.wasmd/
-sudo chmod -R a+rx template/.wasmd/
+sudo chmod -R g+rwx "$SCRIPT_DIR"/template/.wasmd/
+sudo chmod -R a+rx "$SCRIPT_DIR"/template/.wasmd/
 
 # The ./template folder is created by the docker daemon's user (root on Linux, current user
 # when using Docker Desktop on macOS), let's make it ours if needed

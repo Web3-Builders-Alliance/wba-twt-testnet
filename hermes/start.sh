@@ -1,6 +1,17 @@
 #!/bin/bash
 
-HERMES="hermes --config config.toml"
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -c|--config) config="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+# Verify we got the docker, either wasmd or osmosis
+if [ -z "$config" ]; then config="config.toml"; fi
+
+HERMES="hermes --config $config"
 
 # First, lets make sure our chains are running and are healthy.
 # Exit if theres an error.
