@@ -19,13 +19,13 @@ $ ./ci-scripts/osmosis/generate_template.sh
 ### Start wasmd in terminal 1:
 
 ```bash
-$ cd ./ci-scripts/wasmd/start.sh
+$ ./ci-scripts/wasmd/start.sh
 ```
 
 ### Start osmosis in terminal 2:
 
 ```bash
-$ cd ./ci-scripts/osmosis/start.sh
+$ ./ci-scripts/osmosis/start.sh
 ```
 
 ### Close chains.
@@ -33,11 +33,11 @@ $ cd ./ci-scripts/osmosis/start.sh
 To shut down the chains, go into the terminal and click `ctrl + z` after that, run the stop script.
 
 ```bash
-$ cd ./ci-scripts/wasmd/stop.sh
+$ ./ci-scripts/wasmd/stop.sh
 ```
 
 ```bash
-$ cd ./ci-scripts/osmosis/stop.sh
+$ ./ci-scripts/osmosis/stop.sh
 ```
 
 NOTE: `ctrl + c` might not stop the process because of the way we run the docker, `ctrl + z` will abort and allow you to run the stop script.  
