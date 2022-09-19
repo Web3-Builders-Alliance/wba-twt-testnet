@@ -9,11 +9,11 @@ There are 2 chains, wasmd and osmosisd for testing, you will need to start both 
 Before running the chain, you will need to generate the chain config files.
 
 ```bash
-$ cd ./ci-scripts/wasmd/generate_template.sh
+$ ./ci-scripts/wasmd/generate_template.sh
 ```
 
 ```bash
-$ cd ./ci-scripts/osmosis/generate_template.sh
+$ ./ci-scripts/osmosis/generate_template.sh
 ```
 
 ### Start wasmd in terminal 1:
