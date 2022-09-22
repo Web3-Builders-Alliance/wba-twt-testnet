@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PASSWORD="1234567890"
+PASSWORD=1234567890
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -16,26 +16,18 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 # Verify we got the docker, either wasmd or osmosis
-if [ -z "$docker" ]; then echo "[ERROR] Please include docker name [wasmd|osmosis]" && exit 1; fi
+if [ -z "$docker" ]; then echo "[ERROR] Please include docker name -d [wasmd|osmosis]" && exit 1; fi
 
 # Verify we got the contract name to upload
-if [ -z "$contract" ]; then echo "[ERROR] Please include contract name to upload [example.wasm]" && exit 1; fi
+if [ -z "$contract" ]; then echo "[ERROR] Please include contract name to upload: -c [example.wasm]" && exit 1; fi
 
 # Set default label
 if [ -z "$label" ]; then label="testing"; fi
 
 # Verify we have a wallet, either a default wallet, or given by user
-if [[ "$docker" == *"osmo"* ]]; then
-    chain_client="osmosisd"
-    chain_id="osmo-testing"
-    chain_coin="osmo"
-
+if [[ "$docker" =~ "osmo" ]]; then
     if [ -z "$wallet" ]; then wallet="osmo1ll3s59aawh0qydpz2q3xmqf6pwzmj24t9ch58c"; fi
-elif [[ "$docker" == *"wasm"* ]]; then
-    chain_client="wasmd"
-    chain_id="wasmd-1"
-    chain_coin="cosm"
-
+elif [[ "$docker" =~ "wasm" ]]; then
     if [ -z "$wallet" ]; then wallet="wasm1ll3s59aawh0qydpz2q3xmqf6pwzmj24t8l43cp"; fi
 else 
     echo "[ERROR] Didn't recognized '$docker', please provide a wallet: -w [WALLET]" && exit 1;
@@ -62,5 +54,5 @@ CONTRACT_ADDR=$(./init.sh -d $docker -c $CODE_ID -w $wallet -i "$init_json" -l $
 echo $( jq -n \
             --argjson code_id "$CODE_ID" \
             --arg docker "$docker" \
-            --argjson contract_addr "$CONTRACT_ADDR" \
+            --argjson contract_addr $CONTRACT_ADDR \
             '{chain: $docker, code_id: $code_id, contract_address: $contract_addr'} )

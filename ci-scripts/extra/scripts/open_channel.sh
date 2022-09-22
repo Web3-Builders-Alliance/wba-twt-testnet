@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 HERMES_CFG="$SCRIPT_DIR/../../../hermes/config.toml"
-HERMES="hermes --config $HERMES_CFG"
+HERMES="hermes --json --config $HERMES_CFG"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -45,7 +45,13 @@ wasmd query wasm contract $a_contract --output json | jq '.["contract_info"] | .
 CONTRACT_B_PORT=$(docker exec -it osmosis \
 osmosisd query wasm contract $b_contract --output json | jq '.["contract_info"] | .["ibc_port_id"]' | tr -d '"')
 
-$HERMES create channel --a-chain wasmd-1 --a-connection $CONNECTION \
+read -r WASM_SIDE OSMO_SIDE \
+< <(echo $($HERMES create channel --a-chain wasmd-1 --a-connection $CONNECTION \
 --a-port $CONTRACT_A_PORT \
 --b-port $CONTRACT_B_PORT \
---order "$order" --channel-version "$version"
+--order "$order" --channel-version "$version" | jq -cr '.result.a_side, .result.b_side'))
+
+echo $( jq -n \
+            --argjson WASM_SIDE "$WASM_SIDE" \
+            --argjson OSMO_SIDE "$OSMO_SIDE" \
+            '{wasm: $WASM_SIDE, osmo: $OSMO_SIDE}' )
