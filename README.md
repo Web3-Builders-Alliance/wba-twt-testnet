@@ -50,7 +50,7 @@ To run hermes, the chains already include the relayer wallets for signing txs, b
 ### Quick start
 
 This will run the needed commands to validate the chains and the config, set up the keys for the wallets, create connection between the chains and 
-run hermes proess.
+run hermes process.
 
 ```bash
 $ ./hermes/start.sh
